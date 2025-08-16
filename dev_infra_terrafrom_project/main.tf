@@ -10,16 +10,17 @@
 data "aws_ami" "ubuntu" {
   most_recent = true
 
-  owners = ["amazon"]
   filter {
-    name = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-20230516"]
-
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
-}
 
-output "ubuntu_ami_id" {
-	value = data.aws_ami.ubuntu
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
 }
 
 
